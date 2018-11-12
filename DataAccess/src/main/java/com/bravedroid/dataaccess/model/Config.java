@@ -4,6 +4,10 @@ public class Config {
     public final static String KEY_BASE_URL = "baseUrl";
     public final static String KEY_PORT = "port";
     public final static String KEY_IS_PROD = "isProd";
+    
+    private String baseUrl;
+    private int port;
+    private boolean isProd;
 
     public Config() {
     }
@@ -14,28 +18,12 @@ public class Config {
         this.isProd = isProd;
     }
 
-    private String baseUrl;
-    private int port;
-    private boolean isProd;
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
-    public int getPort() {
-        return port;
-    }
-
     public void setPort(int port) {
         this.port = port;
-    }
-
-    public boolean isProd() {
-        return isProd;
     }
 
     public void setProd(boolean prod) {
