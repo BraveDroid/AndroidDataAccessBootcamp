@@ -19,9 +19,9 @@ public class BasicParsingWithGsonTest {
     public void serializeBaseModelTest() {
         User user = new User(30, "matata", "hakouna");
         Book book = new Book("GSON", "Mark", 30, user);
-        String resutlt = SUT.serializeBaseModel(book);
-        String expected = "{\"author\":\"Mark\",\"price\":30.0,\"title\":\"GSON\",\"user\":{\"age\":30,\"firstName\":\"matata\",\"lastName\":\"hakouna\"}}";
-        assertEquals(expected, resutlt);
+        String result = SUT.serializeBaseModel(book);
+        String expected = "{'title':'GSON','author':'Mark','price':30.0,'user':{'age':30,'firstName':'matata','lastName':'hakouna'}}".replaceAll("'", "\"");
+        assertEquals(expected, result);
     }
 
     @Test
