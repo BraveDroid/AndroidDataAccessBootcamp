@@ -21,10 +21,4 @@ public class Library {
                 && ((Library) obj).listOfBooks.containsAll(this.listOfBooks)
                 && this.listOfBooks.size() == ((Library) obj).listOfBooks.size();
     }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }
