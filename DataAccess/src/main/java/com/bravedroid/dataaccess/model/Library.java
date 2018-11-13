@@ -1,7 +1,5 @@
 package com.bravedroid.dataaccess.model;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
 public class Library {
