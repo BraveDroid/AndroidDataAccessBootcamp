@@ -36,7 +36,7 @@ public class AnnotationSerializeNameParserTest {
     public void deserializeBookModelTest() throws URISyntaxException, IOException {
         URL resource = getClass().getClassLoader().getResource("bookModel2.json");
         String input = new String(Files.readAllBytes(Paths.get(resource.toURI())), StandardCharsets.UTF_8.name());
-        BookModel2 expected = new BookModel2("Gson", "No0rman Peitek", 30);
+        BookModel2 expected = new BookModel2("Gson", "Norman Peitek", 30);
         BookModel2 result = SUT.deserializeBookModel2(input);
         assertThat(result, is(equalTo(expected)));
     }
