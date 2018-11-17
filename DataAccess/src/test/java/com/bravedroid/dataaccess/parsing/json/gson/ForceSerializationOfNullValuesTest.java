@@ -19,7 +19,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class ForceSerializationOfNullValuesTest {
-private ForceSerializationOfNullValues SUT;
+    private static final String SIMPLE_USER_JSON = "simpleUser.json";
+    private ForceSerializationOfNullValues SUT;
 
     @Before
     public void setUp() {
@@ -36,7 +37,7 @@ private ForceSerializationOfNullValues SUT;
 
     @Test
     public void deserializeNullValuesTest() throws URISyntaxException, IOException {
-        URL resource = getClass().getClassLoader().getResource("simpleUser.json");
+        URL resource = getClass().getClassLoader().getResource(SIMPLE_USER_JSON);
         String input = new String(Files.readAllBytes(Paths.get(resource.toURI())), StandardCharsets.UTF_8.name());
         SimpleUser expected = new SimpleUser("Norman", null, true, 26);
         SimpleUser result = SUT.deserializeNullValues(input);
