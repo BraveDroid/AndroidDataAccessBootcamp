@@ -1,0 +1,45 @@
+{
+  "libraryAddress": " 50 place republic ",
+  "listOfBooks": [
+    {
+      "title": "User story Mapping",
+      "author": "Jeff Patten",
+      "price": 35.0,
+      "user": {
+        "age": 20,
+        "firstName": "sam",
+        "lastName": "spenser"
+      }
+    },
+    {
+      "title": "Streaming Systems",
+      "author": "Tyler Akidau, Slava Chernyak, Reuven Lax",
+      "price": 35.0,
+      "user": {
+        "age": 29,
+        "firstName": "guess",
+        "lastName": "white"
+      }
+    },
+    {
+      "title": "Deep Learning Cookbook",
+      "author": "Douwe Osinga",
+      "price": 35.0,
+      "user": {
+        "age": 28,
+        "firstName": "shon",
+        "lastName": "naser"
+      }
+    },
+    {
+      "title": "Jenkins 2: Up and Running",
+      "author": "Brent Laster",
+      "price": 35.0,
+      "user": {
+        "age": 33,
+        "firstName": "july",
+        "lastName": "lasiter"
+      }
+    }
+  ]
+}

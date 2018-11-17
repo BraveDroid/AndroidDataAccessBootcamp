@@ -1,7 +1,6 @@
 package com.bravedroid.dataaccess.parsing.json.gson;
 
 import com.bravedroid.dataaccess.model.User;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,8 +18,8 @@ public class SimpleParsingTest {
     public void toJsonStringTest() {
         User user = new User(50, "Mike", "Tomas");
         String userString = SUT.toJsonString(user);
-        String expected = "{'age':50,'firstName':'Mike','lastName':'Tomas'}";
-        assertEquals(expected.replaceAll("'", "\""), userString);
+        String expected = "{'age':50,'firstName':'Mike','lastName':'Tomas'}".replaceAll("'", "\"");
+        assertEquals(expected, userString);
     }
 
     @Test
