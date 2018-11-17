@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class ForceSerializationOfNullValuesTest {
-    ForceSerializationOfNullValues SUT;
+private ForceSerializationOfNullValues SUT;
 
     @Before
     public void setUp() {
