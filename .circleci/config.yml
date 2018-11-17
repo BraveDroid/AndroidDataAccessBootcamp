@@ -1,7 +1,3 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
  build:
@@ -42,5 +38,10 @@ jobs:
          destination: reports
      - store_test_results:
          path: app/build/test-results
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
 
 # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
