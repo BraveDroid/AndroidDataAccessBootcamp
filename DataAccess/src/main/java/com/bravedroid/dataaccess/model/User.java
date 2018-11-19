@@ -1,6 +1,8 @@
 package com.bravedroid.dataaccess.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int age;
     private String firstName;
     private String lastName;
