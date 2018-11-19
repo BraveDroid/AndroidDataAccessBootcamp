@@ -14,6 +14,7 @@ import java.util.List;
 
 class MappingArraysAndListsOfObjects {
     private Gson gson = new Gson();
+
     public String mapListSerialisation() {
         List<Book> listOfBooks = new ArrayList<>();
         User user1 = new User(20, "sam", "spenser");
@@ -29,7 +30,7 @@ class MappingArraysAndListsOfObjects {
         return gson.toJson(library);
     }
 
-   public Library mapListDeserialization(InputStream inputStream) throws UnsupportedEncodingException {
+    public Library mapListDeserialization(InputStream inputStream) throws UnsupportedEncodingException {
         Reader reader = new InputStreamReader(inputStream, "UTF-8");
         return gson.fromJson(reader, Library.class);
     }
