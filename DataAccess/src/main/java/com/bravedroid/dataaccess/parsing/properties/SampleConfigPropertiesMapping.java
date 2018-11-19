@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static com.bravedroid.dataaccess.model.Config.KEY_BASE_URL;
-import static com.bravedroid.dataaccess.model.Config.KEY_IS_PROD;
-import static com.bravedroid.dataaccess.model.Config.KEY_PORT;
+import static com.bravedroid.dataaccess.model.Config.*;
 
 public class SampleConfigPropertiesMapping {
 

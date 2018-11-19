@@ -2,7 +2,6 @@ package com.bravedroid.dataaccess.parsing.serialize;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import com.bravedroid.dataaccess.model.Book;
 
 import java.io.*;
