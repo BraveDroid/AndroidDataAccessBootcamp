@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 public class ForceSerializationOfNullValues {
-private Gson gson;
+    private Gson gson;
 
     public ForceSerializationOfNullValues() {
         GsonBuilder gsonBuilder = new GsonBuilder();
