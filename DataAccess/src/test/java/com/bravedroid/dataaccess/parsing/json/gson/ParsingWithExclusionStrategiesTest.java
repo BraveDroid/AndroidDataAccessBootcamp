@@ -41,26 +41,20 @@ public class ParsingWithExclusionStrategiesTest {
         return new BaseMatcher<UserDate>() {
             @Override
             public boolean matches(Object obj) {
-                boolean result = false;
                 if (!(obj instanceof UserDate)) {
-                    result = false;
-                }
-                if (userDate._name == null && ((UserDate) obj)._name == null) {
-                    if (userDate.registerDate == null && ((UserDate) obj).registerDate == null) {
-                        result = userDate.email.equals(((UserDate) obj).email)
-                                && userDate.age == 0 && ((UserDate) obj).age == 0
-                                && userDate.isDeveloper == ((UserDate) obj).isDeveloper;
-                    }
-                } else if (userDate._name != null && ((UserDate) obj)._name != null) {
-                    if (userDate.registerDate != null && ((UserDate) obj).registerDate != null) {
-                        result = userDate.email.equals(((UserDate) obj).email)
-                                && userDate.age == 0 && ((UserDate) obj).age == 0
-                                && userDate.isDeveloper == ((UserDate) obj).isDeveloper;
-                    }
-                } else {
                     return false;
                 }
-                return result;
+                if (isBothNameNull((UserDate) obj, userDate) && (isBothRegisterDateNull((UserDate) obj, userDate))) {
+                    return userDate.email.equals(((UserDate) obj).email)
+                            && userDate.age == 0 && ((UserDate) obj).age == 0
+                            && userDate.isDeveloper == ((UserDate) obj).isDeveloper;
+                }
+                if (isBothNameNotNull((UserDate) obj, userDate) && (isBothRegisterDateNotNull((UserDate) obj, userDate))) {
+                    return userDate.email.equals(((UserDate) obj).email)
+                            && userDate.age == 0 && ((UserDate) obj).age == 0
+                            && userDate.isDeveloper == ((UserDate) obj).isDeveloper;
+                }
+                return false;
             }
 
             @Override
@@ -68,5 +62,21 @@ public class ParsingWithExclusionStrategiesTest {
                 description.appendText("they should be equals ").appendValue(userDate);
             }
         };
+    }
+
+    private boolean isBothRegisterDateNotNull(UserDate obj, UserDate userDate) {
+        return userDate.registerDate != null && obj.registerDate != null;
+    }
+
+    private boolean isBothNameNotNull(UserDate obj, UserDate userDate) {
+        return userDate._name != null && obj._name != null;
+    }
+
+    private boolean isBothRegisterDateNull(UserDate obj, UserDate userDate) {
+        return userDate.registerDate == null && obj.registerDate == null;
+    }
+
+    private boolean isBothNameNull(UserDate obj, UserDate userDate) {
+        return userDate._name == null && obj._name == null;
     }
 }
