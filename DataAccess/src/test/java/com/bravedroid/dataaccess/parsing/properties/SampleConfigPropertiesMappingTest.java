@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class SampleConfigPropertiesMappingTest {
     private SampleConfigPropertiesMapping SUT;

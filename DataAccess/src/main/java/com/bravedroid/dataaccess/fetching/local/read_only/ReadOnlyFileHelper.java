@@ -1,6 +1,5 @@
 package com.bravedroid.dataaccess.fetching.local.read_only;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;

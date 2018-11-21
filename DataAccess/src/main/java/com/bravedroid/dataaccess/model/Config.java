@@ -4,7 +4,7 @@ public class Config {
     public final static String KEY_BASE_URL = "baseUrl";
     public final static String KEY_PORT = "port";
     public final static String KEY_IS_PROD = "isProd";
-    
+
     private String baseUrl;
     private int port;
     private boolean isProd;
