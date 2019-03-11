@@ -1,12 +1,12 @@
 package com.bravedroid.dataaccess.fetching.local.file;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ExternalFileHelper {
     public static String STORAGE_DIR = "storage_dir";
@@ -38,6 +38,12 @@ public class ExternalFileHelper {
 
     public void createOrUpdatePublicExternalFile(String fileName, String messageData) {
         createOrUpdatePublicExternalFile(fileName, messageData, false);
+    }
+
+    public void createPublicExternalFile2(String fileName, String messageData) {
+        File publicExternalDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File externalFile = new File(publicExternalDir, fileName);
+        writeTextFile(externalFile, messageData);
     }
 
     public void createOrUpdateExternalCacheFile(Context context, String fileName, String messageData, boolean shouldUpdate) {
@@ -85,6 +91,33 @@ public class ExternalFileHelper {
         }
         return stb.toString();
     }
+
+    public String readPublicExternalFileContent2(String fileName) {
+        File publicExternalDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File externalFile = new File(publicExternalDir, fileName);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] bytes = new byte[4096];
+        try (InputStream fis = new FileInputStream(externalFile)) {
+            while ((fis.read(bytes)) > 0) {
+                outputStream.write(bytes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new String(outputStream.toByteArray());
+    }
+
+    public String readPublicExternalFileContent3(String fileName) {
+        File publicExternalDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File externalFile = new File(publicExternalDir, fileName);
+        return readTextFile(externalFile);
+    }
+
 
     public String readCacheExternalFileContent(Context context, String fileName) {
         StringBuffer stb = new StringBuffer();
@@ -176,7 +209,7 @@ public class ExternalFileHelper {
         }
     }
 
-    public void deleteAllPublicExternalFiles() {
+    public void deleteAllExternalPublicFiles() {
         File cacheDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         String[] strings = cacheDir.list();
         for (String string : strings) {
@@ -193,5 +226,34 @@ public class ExternalFileHelper {
     public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+    }
+
+    public boolean isReadToExternalPublicStoragePermissionGranted(Context context) {
+        return (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED);
+    }
+
+    public boolean isWriteToExternalPublicStoragePermissionGranted(Context context) {
+        return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void writeTextFile(File file, String text) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String readTextFile(File file) {
+        StringBuilder text = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                text.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text.toString();
     }
 }
