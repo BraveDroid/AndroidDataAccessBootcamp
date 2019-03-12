@@ -1,47 +1,49 @@
 version: 2
 jobs:
- build:
-   working_directory: ~/repo/DataAccess
-   docker:
-     # specify the version you desire here
-     - image: circleci/android:api-25-alpha
-     # Specify service dependencies here if necessary
-     # CircleCI maintains a library of pre-built images
-     # documented at https://circleci.com/docs/2.0/circleci-images/
-     # - image: circleci/postgres:9.4
-   environment:
-     # Customize the JVM maximum heap limit
-     JVM_OPTS: -Xmx3200m
-     #TERM: dumb
+  build:
+    working_directory: ~/repo/DataAccess
+    docker:
+    # specify the version you desire here
+    - image: circleci/android:api-25-alpha
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/postgres:9.4
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      #TERM: dumb
 
-   steps:
-     - checkout
-     # Download and cache dependencies
-     - restore_cache:
-         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "DataAccess/build.gradle" }}
-     - run:
+    steps:
+    - checkout
+    - run:
+        yes | sdkmanager --update || exit 0
+    # Download and cache dependencies
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "DataAccess/build.gradle" }}
+    - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
-     - run:
-         name: Download Dependencies
-         command: ./gradlew androidDependencies
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
 
-     - save_cache:
-         paths:
-           - ~/.gradle
-         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "DataAccess/build.gradle" }}
-     - run:
-         name: Run Tests
-         command: ./gradlew lint test
-     - store_artifacts:
-         path: app/build/reports
-         destination: reports
-     - store_test_results:
-         path: app/build/test-results
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "DataAccess/build.gradle" }}
+    - run:
+        name: Run Tests
+        command: ./gradlew lint test
+    - store_artifacts:
+        path: app/build/reports
+        destination: reports
+    - store_test_results:
+        path: app/build/test-results
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+    - build
 
 # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples.
