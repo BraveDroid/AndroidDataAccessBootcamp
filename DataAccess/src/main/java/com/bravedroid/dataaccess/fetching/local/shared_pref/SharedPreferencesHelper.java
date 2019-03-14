@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class SharedPreferencesHelper {
     /**
      * default sharedPreferences Instance, application level
@@ -46,6 +49,30 @@ public class SharedPreferencesHelper {
     public void saveAsync(SharedPreferences sharedPreferences, @NonNull Callback callback) {
         SharedPreferences.Editor edit = callback.onEditorCreation(sharedPreferences.edit());
         if (edit != null) edit.apply();
+    }
+
+    public static <T> T get(SharedPreferences sharedPreferences, String key, T defaultValue) {
+        if (defaultValue instanceof String)
+            return (T) sharedPreferences.getString(key, (String) defaultValue);
+        if (defaultValue instanceof Boolean)
+            return (T) new Boolean(sharedPreferences.getBoolean(key, (Boolean) defaultValue));
+        if (defaultValue instanceof Float)
+            return (T) new Float(sharedPreferences.getFloat(key, (Float) defaultValue));
+        if (defaultValue instanceof Integer)
+            return (T) new Integer(sharedPreferences.getInt(key, (Integer) defaultValue));
+        if (defaultValue instanceof Long)
+            return (T) new Long(sharedPreferences.getLong(key, (Long) defaultValue));
+        if (defaultValue instanceof Set<?>) {
+            Set<?> set = (Set<?>) defaultValue;
+            Set<String> setResult = new HashSet<>();
+            for (Object element : set) {
+                if (element instanceof String) {
+                    setResult.add((String) element);
+                }
+            }
+            return (T) sharedPreferences.getStringSet(key, setResult);
+        }
+        throw new IllegalArgumentException();
     }
 
     interface Callback {
